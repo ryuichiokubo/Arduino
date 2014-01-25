@@ -22,6 +22,15 @@ myBoard.on("ready", function() {
       leds.push(myLed);
   }
 
+  // turn on LED randomely by keypress
+  randomOnByKey = function(data) {
+    num = Math.floor(Math.random() * leds.length);
+    leds[num].on();
+    board.wait(100, function() {
+      leds[num].off();
+    });
+  }
+
   // toggle LED specified by input number
   toggleByNumber = function(data) {
     //console.log(typeof(data) + ' ' + data);
@@ -31,7 +40,8 @@ myBoard.on("ready", function() {
     }
   };
 
-  process.stdin.on("data", toggleByNumber);
+  // process.stdin.on("data", toggleByNumber);
+  process.stdin.on("data", randomOnByKey);
 
   allOn();
   board.wait(500, allOff);
